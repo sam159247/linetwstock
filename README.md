@@ -8,4 +8,17 @@ The basic idea is that Line handles frontend and using AWS Lambda with Amazon AP
 
 ## Getting Started
 
-WIP
+### VSCode Quick Start
+
+- Install and run extension "Remote - Containers" (id: ms-vscode-remote.remote-containers).
+
+### Dependencies
+
+- Python 3.9+
+- Poetry
+
+### Installing
+
+```bash
+poetry install
+```

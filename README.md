@@ -22,3 +22,8 @@ The basic idea is that Line handles frontend and using AWS Lambda with Amazon AP
 ```bash
 poetry install
 ```
+
+```bash
+# Locally test fastapi with Uvicorn
+bash ./scripts/run.sh
+```

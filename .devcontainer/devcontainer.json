@@ -1,0 +1,53 @@
+// https://github.com/microsoft/vscode-dev-containers/tree/main/container-templates/docker-compose/.devcontainer
+{
+	"name": "Python-Debian",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/home/vscode/workspace",
+	"settings": {
+		"terminal.integrated.defaultProfile.linux": "fish",
+		"python.pythonPath": "${workspaceFolder}/.venv/bin/python",
+		"python.linting.enabled": true,
+		"python.linting.pylintEnabled": false,
+		"python.linting.flake8Args": [
+			"--max-line-length=119"
+		],
+		"python.linting.flake8Enabled": true,
+		"python.linting.lintOnSave": true,
+		"python.linting.mypyEnabled": true,
+		"python.linting.mypyArgs": [
+			"--config-file",
+			"mypy.ini"
+		],
+		"python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
+		"python.formatting.provider": "black",
+		"python.formatting.blackPath": "${workspaceFolder}/.venv/bin/black",
+		"python.formatting.blackArgs": [
+			"--line-length=119"
+		],
+		"python.languageServer": "Pylance",
+		"python.testing.pytestEnabled": true,
+		"python.testing.pytestArgs": [
+			"-vv",
+			"--show-capture=all",
+			"tests"
+		],
+		"editor.formatOnSave": true,
+		"editor.formatOnType": true,
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true
+		},
+		"autoDocstring.docstringFormat": "google",
+	},
+	"extensions": [
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+		"mhutchie.git-graph",
+		"vscode-icons-team.vscode-icons",
+		"eamodio.gitlens",
+		"njpwerner.autodocstring",
+		"davidanson.vscode-markdownlint",
+	],
+	"postCreateCommand": "bash ./.devcontainer/postCreateCommand.sh",
+	"remoteUser": "vscode"
+}

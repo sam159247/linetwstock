@@ -3,6 +3,7 @@
     "ms-python.python",
     "njpwerner.autodocstring",
     "davidanson.vscode-markdownlint",
-    "ms-vscode-remote.remote-containers"
+    "ms-vscode-remote.remote-containers",
+    "ryanluker.vscode-coverage-gutters",
   ]
 }

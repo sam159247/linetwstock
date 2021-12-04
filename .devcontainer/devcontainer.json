@@ -47,6 +47,7 @@
 		"eamodio.gitlens",
 		"njpwerner.autodocstring",
 		"davidanson.vscode-markdownlint",
+		"ryanluker.vscode-coverage-gutters",
 	],
 	"postCreateCommand": "bash ./.devcontainer/postCreateCommand.sh",
 	"remoteUser": "vscode"

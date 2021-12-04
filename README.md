@@ -23,7 +23,12 @@ The basic idea is that Line handles frontend and using AWS Lambda with Amazon AP
 poetry install
 ```
 
+### Local test
+
 ```bash
 # Locally test fastapi with Uvicorn
 bash ./scripts/run.sh
+
+# example
+curl -vsL "http://127.0.0.1:8000/get_stock_price?stock_id=2330&start_date=2021-12-01"
 ```

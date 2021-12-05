@@ -18,3 +18,4 @@ docker-compose*
 .coverage.*
 .cache
 .github
+**/*cdk_stack.py

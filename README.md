@@ -30,6 +30,7 @@ poetry install
 
 docker-compose -f docker-compose.dev.yml up --build
 
+
 # example
 curl -vsL "http://127.0.0.1:9001/get_stock_price?stock_id=2330&start_date=2021-12-01"
 ```
@@ -39,4 +40,15 @@ curl -vsL "http://127.0.0.1:9001/get_stock_price?stock_id=2330&start_date=2021-1
 ```bash
 aws ssm put-parameter --name "/stg1/lambda/linetwstock/finmind_token" --value 'secret' --type "SecureString"
 aws ssm put-parameter --name "/prod/lambda/linetwstock/finmind_token" --value 'secret' --type "SecureString"
+```
+
+### Deploy
+
+Use CDK deploy to AWS resource from local.
+
+```bash
+# example
+# AWS SSO + aws-vault are recommended.
+aws-vault exec {AWS_PROFILE} -- npx cdk diff linetwstock-cdk-stack-stg1
+aws-vault exec {AWS_PROFILE} -- npx cdk deploy linetwstock-cdk-stack-stg1
 ```

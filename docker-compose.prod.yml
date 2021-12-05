@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/cloud/Dockerfile
+    image: linetwstock/fastapi:production
+    container_name: linetwstock_fastapi

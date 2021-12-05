@@ -8,7 +8,7 @@ from app.internal.finmind_api import FindMindAPI
 router = APIRouter()
 
 
-@router.get("/", response_model=schemas.RespStockPrice)
+@router.get("/get_stock_price", response_model=schemas.RespStockPrice)
 def get_stock_price(param: models.StockPrice = Depends()) -> Any:
     """Get basic stock information."""
 

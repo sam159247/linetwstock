@@ -10,6 +10,7 @@ fastapi = "^0.70.0"
 requests = "^2.26.0"
 loguru = "^0.5.3"
 pydantic = {extras = ["dotenv"], version = "^1.8.2"}
+mangum = "^0.12.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from mangum import Mangum
 
 from app.api.api import api_router
 from app.core.config import settings
@@ -15,3 +16,5 @@ async def root() -> dict:
 
 
 app.include_router(api_router)
+
+handler = Mangum(app)

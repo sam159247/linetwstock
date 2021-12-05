@@ -1,12 +1,11 @@
 """Read .env file to set token if it's in DEVELPOMENT environment, otherwise
 read AWS Systems Manager Parameter Store to set token."""
 import os
+from functools import cache
 
 from pydantic import BaseSettings
 
 from app.core.utils import get_ssm_parameters
-
-# iru_cache
 
 
 class Settings(BaseSettings):
@@ -46,6 +45,7 @@ class Production(Settings):
     FINMIND_TOKEN = result_params["/prod/lambda/linetwstock/finmind_token"]
 
 
+@cache
 def get_settings() -> Settings:
     env = os.getenv("ENV", "DEVELPOMENT")
     if env == "STAGING_1":

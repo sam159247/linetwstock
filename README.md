@@ -33,3 +33,10 @@ docker-compose -f docker-compose.dev.yml up --build
 # example
 curl -vsL "http://127.0.0.1:9001/get_stock_price?stock_id=2330&start_date=2021-12-01"
 ```
+
+### Set up token on AWS SSM
+
+```bash
+aws ssm put-parameter --name "/stg1/lambda/linetwstock/finmind_token" --value 'secret' --type "SecureString"
+aws ssm put-parameter --name "/prod/lambda/linetwstock/finmind_token" --value 'secret' --type "SecureString"
+```

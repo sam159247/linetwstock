@@ -4,6 +4,8 @@ import os
 
 from pydantic import BaseSettings
 
+from app.core.utils import get_ssm_parameters
+
 # iru_cache
 
 
@@ -22,9 +24,34 @@ class Development(Settings):
         env_file_encoding = "utf-8"
 
 
+class Staging_1(Settings):
+    ENV = "STAGING_1"
+    result_params = get_ssm_parameters(
+        [
+            "/stg1/lambda/linetwstock/finmind_token",
+        ]
+    )
+
+    FINMIND_TOKEN = result_params["/stg1/lambda/linetwstock/finmind_token"]
+
+
+class Production(Settings):
+    ENV = "PRODUCTION"
+    result_params = get_ssm_parameters(
+        [
+            "/prod/lambda/linetwstock/finmind_token",
+        ]
+    )
+
+    FINMIND_TOKEN = result_params["/prod/lambda/linetwstock/finmind_token"]
+
+
 def get_settings() -> Settings:
     env = os.getenv("ENV", "DEVELPOMENT")
-    print(f"ENV={env}")
+    if env == "STAGING_1":
+        return Staging_1()
+    if env == "PRODUCTION":
+        return Production()
     return Development()
 
 

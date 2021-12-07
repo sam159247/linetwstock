@@ -27,11 +27,11 @@ jobs:
         run: |
           case "${{ github.event.inputs.stage }}" in
             "stg1" )
-              destroy_target="line-bot-cdk-stack-stg1"
+              destroy_target="linetwstock-cdk-stack-stg1"
               aws_role_arn=${{ secrets.STG1_AWS_ROLE_ARN }}
               ;;
             "prod" )
-              destroy_target="line-bot-cdk-stack-prod"
+              destroy_target="linetwstock-cdk-stack-prod"
               aws_role_arn=${{ secrets.PROD_AWS_ROLE_ARN }}
               ;;
             *)

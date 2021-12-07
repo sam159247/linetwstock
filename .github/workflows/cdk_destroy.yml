@@ -1,0 +1,87 @@
+name: CDK Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        type: choice
+        description: "STAGE"
+        options:
+        - stg1
+        - prod
+        required: true
+        default: stg1
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Load Config
+        id: get_config
+        run: |
+          case "${{ github.event.inputs.stage }}" in
+            "stg1" )
+              destroy_target="line-bot-cdk-stack-stg1"
+              aws_role_arn=${{ secrets.STG1_AWS_ROLE_ARN }}
+              ;;
+            "prod" )
+              destroy_target="line-bot-cdk-stack-prod"
+              aws_role_arn=${{ secrets.PROD_AWS_ROLE_ARN }}
+              ;;
+            *)
+              echo "Input Error stage" 1>&2
+              exit 1
+              ;;
+          esac
+          
+          echo "AWS_ROLE_ARN=$aws_role_arn" >> $GITHUB_ENV
+          echo "DESTROY_TARGET=$destroy_target" >> $GITHUB_ENV
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Setup CDK
+        run: npm -g install aws-cdk@2.0.0
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          architecture: 'x64'
+
+      - name: Install poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-dev
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+
+      - name: Configure AWS credentials from Production account
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ap-northeast-1
+
+      - name: CDK destroy
+        run: |
+          source .venv/bin/activate
+          cdk destroy ${{ env.DESTROY_TARGET }} --force

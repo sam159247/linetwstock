@@ -59,3 +59,9 @@ Use CDK deploy to AWS resource from local.
 aws-vault exec {AWS_PROFILE} -- npx cdk diff linetwstock-cdk-stack-stg1
 aws-vault exec {AWS_PROFILE} -- npx cdk deploy linetwstock-cdk-stack-stg1
 ```
+
+### Github Actions secrets
+
+- Set up actions secrets `STG1_AWS_ROLE_ARN`, `PROD_AWS_ROLE_ARN` or more environments, see [here](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
+  - OpenID Connect IAM Role ARN looks like ⬇️
+    - `arn:aws:iam::123456789012:role/linetwstock-github-actions`

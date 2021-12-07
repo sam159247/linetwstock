@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     ENV: str = ENVIRONMENT
     FINMIND_BASE_URL: str = "https://api.finmindtrade.com/api/v4/data"
     FINMIND_TOKEN: str
+    LINE_CHANNEL_SECRET: str
+    LINE_CHANNEL_ACCESS_TOKEN: str
 
 
 class Development(Settings):
@@ -29,10 +31,14 @@ class Staging_1(Settings):
         result_params = get_ssm_parameters(
             [
                 "/stg1/lambda/linetwstock/finmind_token",
+                "/stg1/lambda/linetwstock/line_channel_secret",
+                "/stg1/lambda/linetwstock/line_channel_access_token",
             ]
         )
 
         FINMIND_TOKEN = result_params["/stg1/lambda/linetwstock/finmind_token"]
+        LINE_CHANNEL_SECRET = result_params["/stg1/lambda/linetwstock/line_channel_secret"]
+        LINE_CHANNEL_ACCESS_TOKEN = result_params["/stg1/lambda/linetwstock/line_channel_access_token"]
 
 
 class Production(Settings):
@@ -40,10 +46,14 @@ class Production(Settings):
         result_params = get_ssm_parameters(
             [
                 "/prod/lambda/linetwstock/finmind_token",
+                "/prod/lambda/linetwstock/line_channel_secret",
+                "/prod/lambda/linetwstock/line_channel_access_token",
             ]
         )
 
         FINMIND_TOKEN = result_params["/prod/lambda/linetwstock/finmind_token"]
+        LINE_CHANNEL_SECRET = result_params["/prod/lambda/linetwstock/line_channel_secret"]
+        LINE_CHANNEL_ACCESS_TOKEN = result_params["/prod/lambda/linetwstock/line_channel_access_token"]
 
 
 @cache

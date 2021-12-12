@@ -37,7 +37,7 @@ The basic idea is that Line handles frontend and using AWS Lambda handles backen
 
 ## Demo
 
-WIP
+![demo to send mesaage on iphone](https://user-images.githubusercontent.com/30837573/145703195-626d3eb1-a6cf-485d-b10d-5209ed9b2f38.gif)
 
 ## Architecture
 
